@@ -45,7 +45,7 @@ const Home = () => {
                                     delay={200}>
                                     <View style={{ width: width / 20, aspectRatio: 1 }}>
                                         <View style={{ width: '86%', aspectRatio: 1, backgroundColor: color, borderRadius: 4, }} />
-                                    </View>
+                                    </View> 
                                 </TouchableOpacity>
                             )
                         })}
