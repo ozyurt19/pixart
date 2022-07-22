@@ -1,9 +1,8 @@
-// screen shootn sadece cizilen resmi alması
-//
 import React, {useState} from 'react';
 import {View, StyleSheet, StatusBar} from 'react-native';
 import {ColorTable} from '../../components/colorTable';
 import {ColorPalette} from '../../components/colorPalette';
+import {SaveButton} from '../../components/saveButton';
 import {setCellColor} from '../../utils/tableUtil';
 
 const Home = props => {
@@ -24,6 +23,7 @@ const Home = props => {
         }
       />
       <ColorPalette onPressColor={setSelectedColor} />
+      <SaveButton />
     </View>
   );
 };

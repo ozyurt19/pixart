@@ -1,0 +1,2 @@
+const saveArt = () => {};
+export {saveArt};

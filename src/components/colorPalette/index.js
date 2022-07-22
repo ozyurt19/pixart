@@ -11,7 +11,6 @@ import {
   StatusBar,
 } from 'react-native';
 import pt from 'prop-types';
-import Entypo from 'react-native-vector-icons/Entypo';
 
 const ColorPalette = props => {
   const {onPressColor} = props;
@@ -34,8 +33,6 @@ const ColorPalette = props => {
   ]);
   const {width} = Dimensions.get('window');
 
-  const saveArt = () => {};
-
   return (
     <View style={styles.buttonContainer}>
       {colorArray.map(d => (
@@ -52,14 +49,6 @@ const ColorPalette = props => {
           onPress={() => onPressColor(d)}
         />
       ))}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={{alignItems: 'center', margin: 40}}
-          onPress={() => saveArt}>
-          <Entypo name="save" size={50} />
-          <Text style={{fontSize: 20}}>Save your art for later!</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
