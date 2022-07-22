@@ -8,7 +8,7 @@ const ColorTable = props => {
   const { rows, columns, data, onPressCell } = props;
   const rowsArray = new Array(rows).fill(0), columnsArray = new Array(columns).fill(0);
 
-  const { width, height } = Dimensions.get('window');
+  const { width } = Dimensions.get('window');
 
   return (
     <View style={styles.pixelContainer}>
