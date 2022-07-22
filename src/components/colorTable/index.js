@@ -1,5 +1,5 @@
-// screen shootn sadece cizilen resmi alması
-//
+/* eslint-disable no-unused-vars */
+/* eslint-disable react-native/no-inline-styles */
 import React, {useState, useRef, useEffect, captureRef} from 'react';
 import {
   View,

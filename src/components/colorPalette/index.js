@@ -1,3 +1,5 @@
+/* eslint-disable react-native/no-inline-styles */
+/* eslint-disable no-unused-vars */
 import React, {useState, useRef, useEffect, captureRef} from 'react';
 import {
   View,
@@ -32,15 +34,12 @@ const ColorPalette = props => {
   ]);
   const {width} = Dimensions.get('window');
 
-  const saveArt = () => {
-    
-  }
+  const saveArt = () => {};
 
   return (
     <View style={styles.buttonContainer}>
       {colorArray.map(d => (
         <TouchableOpacity
-          // eslint-disable-next-line react-native/no-inline-styles
           style={{
             backgroundColor: d,
             width: width / 12,
@@ -54,7 +53,9 @@ const ColorPalette = props => {
         />
       ))}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={{alignItems: 'center', margin: 40}} onPress={() = saveArt}>
+        <TouchableOpacity
+          style={{alignItems: 'center', margin: 40}}
+          onPress={() => saveArt}>
           <Entypo name="save" size={50} />
           <Text style={{fontSize: 20}}>Save your art for later!</Text>
         </TouchableOpacity>
