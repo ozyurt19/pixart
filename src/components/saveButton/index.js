@@ -47,7 +47,6 @@ const SaveButton = props => {
         <Entypo name="save" size={50} color="gray" />
         <Text style={{fontSize: 20}}>Save your art for later!</Text>
       </TouchableOpacity>
-      <Button onPress={readContent} title="Read from MMKV" />
     </View>
   );
 };
