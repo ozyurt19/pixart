@@ -1,52 +1,48 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
   StatusBar,
-  TextInput,
-  ScrollView,
   FlatList,
   Dimensions,
 } from 'react-native';
-import { MMKV, useMMKVString } from 'react-native-mmkv';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { ColorTable } from '../../components/colorTable';
 import { ColorPalette } from '../../components/colorPalette';
 import { SaveButton } from '../../components/saveButton';
-import { setCellColor } from '../../utils/tableUtil';
-const storage = new MMKV();
 
-const Home = props => {
-  const {} = props;
-  const [selectedColor, setSelectedColor] = useState('white');
+import { setCellColor } from '../../utils/tableUtil';
+import { setItem, getItem } from '../../utils/storage';
+
+const Home = () => {
+  const [selectedColor, setSelectedColor] = useState('#1f252b');
   const [currentColorTableData, setCurrentColorTableData] = useState({});
   const [arts, setArts] = useState([]);
-  const [key, setKey] = useState('');
 
-  const save = React.useCallback(() => {
-    //arrayi kacıncı kayıtsa o numara key olacak sekilde kaydet  !!!num uygulamayı kaptınca 0lanıyor onu da storagede depolamak lazım
-    console.log('setting...');
-    setArts([].concat(arts).concat(currentColorTableData));
-    //setArts([...arts, currentColorTableData]);
-    //storage.set(i, JSON.stringify(arts));
-    console.log('set. array=', arts, 'num=', arts.length);
-  }, [arts, currentColorTableData]);
+  useEffect(() => {
+    const savedArtsStr = getItem('savedArts');
+    if (savedArtsStr) {
+      setArts(JSON.parse(savedArtsStr));
+    }
+  }, []);
 
-  const read = React.useCallback(
-    i => {
-      //kaydedilen arrayi ekrana yukle
-      console.log('getting...');
-      setCurrentColorTableData(arts[i]);
-      console.log('read num=', i, ' got there:', arts[i]);
-    },
-    [arts],
-  );
+  const save = () => {
+    const tmp = [...arts];
+    tmp.push(currentColorTableData);
+    setArts(tmp);
+    setItem('savedArts', JSON.stringify(tmp));
+    //setArts([].concat(arts).concat(currentColorTableData));
+  };
 
   const artTableView = () => {
     return (
-      <View>
+      <View
+        style={{
+          paddingTop: getStatusBarHeight(),
+          height: Dimensions.get('window').height - 2 * getStatusBarHeight(),
+        }}>
         <ColorTable
           data={currentColorTableData}
           onPressCell={(ri, ci) =>
@@ -61,8 +57,7 @@ const Home = props => {
         <SaveButton
           currentTable={currentColorTableData}
           setCurrentTable={setCurrentColorTableData}
-          saveContent={() => save()}
-          readContent={() => read(key)}
+          saveContent={save}
         />
       </View>
     );
@@ -73,13 +68,21 @@ const Home = props => {
       <StatusBar barStyle={'light-content'} translucent />
 
       <FlatList
+        style={styles.saveElement}
+        snapToAlignment={'start'}
+        decelerationRate={'fast'}
+        snapToInterval={
+          Dimensions.get('window').height - 2 * getStatusBarHeight()
+        }
         ListHeaderComponent={artTableView}
         data={arts}
         renderItem={({ item, index }) => (
           <View
+            key={index}
             style={{
-              borderWidth: 1,
-              height: Dimensions.get('window').height - getStatusBarHeight(),
+              borderWidth: 0,
+              height:
+                Dimensions.get('window').height - 2 * getStatusBarHeight(),
               justifyContent: 'center',
               alignItems: 'center',
             }}>
@@ -91,9 +94,6 @@ const Home = props => {
           alignItems: 'center',
         }}
         keyExtractor={(d, i) => i + ''}
-        //snapToAlignment="start"
-        //decelerationRate="fast"
-        //snapToInterval={Dimensions.get('window').height}
         disableIntervalMomentum
       />
     </View>
@@ -107,6 +107,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#9db8d4',
     justifyContent: 'center',
     alignItems: 'center',
+    paddingBottom: getStatusBarHeight(),
+  },
+  saveElement: {
+    backgroundColor: '#9db8d4',
   },
 });
 

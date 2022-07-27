@@ -1,5 +1,5 @@
 const setCellColor = (data, ri, ci, color) => {
-  const tmp = {...data};
+  const tmp = { ...data };
   if (!tmp[ri]) {
     tmp[ri] = [];
   }
@@ -8,4 +8,4 @@ const setCellColor = (data, ri, ci, color) => {
   return tmp;
 };
 
-export {setCellColor};
+export { setCellColor };

@@ -1,19 +1,10 @@
 /* eslint-disable react-native/no-inline-styles */
-/* eslint-disable no-unused-vars */
-import React, {useState, useRef, useEffect, captureRef} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  Button,
-  StatusBar,
-} from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import pt from 'prop-types';
 
 const ColorPalette = props => {
-  const {onPressColor} = props;
+  const { onPressColor } = props;
   const [colorArray] = useState([
     '#100F0F',
     '#0F3D3E',
@@ -31,12 +22,13 @@ const ColorPalette = props => {
     '#D61C4E',
     '#2C3639',
   ]);
-  const {width} = Dimensions.get('window');
+  const { width } = Dimensions.get('window');
 
   return (
     <View style={styles.buttonContainer}>
-      {colorArray.map(d => (
+      {colorArray.map((d, i) => (
         <TouchableOpacity
+          key={i + ''}
           style={{
             backgroundColor: d,
             width: width / 12,
@@ -73,4 +65,4 @@ ColorPalette.defaultProps = {
   onPressColor: () => null,
 };
 
-export {ColorPalette};
+export { ColorPalette };

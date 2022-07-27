@@ -1,45 +1,24 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-native/no-inline-styles */
-import React, {useState, useRef, useEffect, captureRef} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-  Button,
-  StatusBar,
-} from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import pt from 'prop-types';
+import { Cell } from './cell';
 
 const ColorTable = props => {
-  const {rows, columns, data, onPressCell} = props;
+  const { rows, columns, data, onPressCell } = props;
   const rowsArray = new Array(rows).fill(0),
     columnsArray = new Array(columns).fill(0);
-
-  const {width} = Dimensions.get('window');
 
   return (
     <View style={styles.pixelContainer}>
       {rowsArray.map((r, ri) => (
-        <View style={styles.row}>
+        <View key={ri + ''} style={styles.row}>
           {columnsArray.map((c, ci) => {
             const row = data[ri];
             const color =
               row && Array.isArray(row) ? row[ci] || '#1f252b' : '#1f252b';
+
             return (
-              <TouchableOpacity onPress={() => onPressCell(ri, ci)}>
-                <View style={{width: width / 20, aspectRatio: 1}}>
-                  <View
-                    style={{
-                      width: '86%',
-                      aspectRatio: 1,
-                      backgroundColor: color,
-                      borderRadius: 4,
-                    }}
-                  />
-                </View>
-              </TouchableOpacity>
+              <Cell color={color} onPressCell={() => onPressCell(ri, ci)} />
             );
           })}
         </View>
@@ -68,4 +47,4 @@ ColorTable.defaultProps = {
   onPressCell: () => null,
 };
 
-export {ColorTable};
+export { ColorTable };
