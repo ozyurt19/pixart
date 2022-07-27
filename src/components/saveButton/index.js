@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-unused-vars */
-import React, {useState, useRef, useEffect, captureRef, string} from 'react';
+import React, { useState, useRef, useEffect, captureRef, string } from 'react';
 import {
   View,
   Text,
@@ -12,11 +12,11 @@ import {
 } from 'react-native';
 import pt from 'prop-types';
 import Entypo from 'react-native-vector-icons/Entypo';
-import {MMKV, useMMKVString} from 'react-native-mmkv';
+import { MMKV, useMMKVString } from 'react-native-mmkv';
 const storage = new MMKV();
 
 const SaveButton = props => {
-  const {currentTable, setCurrentTable, saveContent, readContent} = props;
+  const { currentTable, setCurrentTable, saveContent, readContent } = props;
 
   //const num = useRef(0);
   //const [text, setText] = React.useState('');
@@ -40,12 +40,12 @@ const SaveButton = props => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
-        style={{alignItems: 'center', margin: 40}}
+        style={{ alignItems: 'center', margin: 40 }}
         onPress={saveContent}
         //key={num.current}
         text={currentTable}>
         <Entypo name="save" size={50} color="gray" />
-        <Text style={{fontSize: 20}}>Save your art for later!</Text>
+        <Text style={{ fontSize: 20 }}>Save your art for later!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -76,7 +76,7 @@ SaveButton.defaultProps = {
   saveContent: () => {},
   readContent: () => {},
 };
-export {SaveButton, storage};
+export { SaveButton, storage };
 
 /*
 onPress={() => {
