@@ -9,7 +9,7 @@ const Cell = props => {
 
   return (
     <TouchableOpacity onPress={onPressCell}>
-      <View style={{ width: width / 20, aspectRatio: 1 }}>
+      <View style={{ width: width / 18, aspectRatio: 1 }}>
         <View
           style={{
             width: '86%',

@@ -1,12 +1,5 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  FlatList,
-  Dimensions,
-} from 'react-native';
+import { View, StyleSheet, StatusBar, Dimensions, Button } from 'react-native';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 
 import { ColorTable } from '../../components/colorTable';
@@ -14,9 +7,10 @@ import { ColorPalette } from '../../components/colorPalette';
 import { SaveButton } from '../../components/saveButton';
 
 import { setCellColor } from '../../utils/tableUtil';
-import { setItem, getItem } from '../../utils/storage';
+import { getItem, setItem } from '../../utils/storage';
+import { Saved } from '../saved';
 
-const Home = () => {
+const Home = ({ navigation }) => {
   const [selectedColor, setSelectedColor] = useState('#1f252b');
   const [currentColorTableData, setCurrentColorTableData] = useState({});
   const [arts, setArts] = useState([]);
@@ -29,6 +23,7 @@ const Home = () => {
   }, []);
 
   const save = () => {
+    //const tmp = [].concat(arts).concat([currentColorTableData]);
     const tmp = [...arts];
     tmp.push(currentColorTableData);
     setArts(tmp);
@@ -36,8 +31,9 @@ const Home = () => {
     //setArts([].concat(arts).concat(currentColorTableData));
   };
 
-  const artTableView = () => {
-    return (
+  return (
+    <View style={styles.main}>
+      <StatusBar barStyle={'light-content'} translucent />
       <View
         style={{
           paddingTop: getStatusBarHeight(),
@@ -59,43 +55,11 @@ const Home = () => {
           setCurrentTable={setCurrentColorTableData}
           saveContent={save}
         />
+        <Button
+          title="Go to Saved Arts"
+          onPress={() => navigation.navigate(Saved)}
+        />
       </View>
-    );
-  };
-
-  return (
-    <View style={styles.main}>
-      <StatusBar barStyle={'light-content'} translucent />
-
-      <FlatList
-        style={styles.saveElement}
-        snapToAlignment={'start'}
-        decelerationRate={'fast'}
-        snapToInterval={
-          Dimensions.get('window').height - 2 * getStatusBarHeight()
-        }
-        ListHeaderComponent={artTableView}
-        data={arts}
-        renderItem={({ item, index }) => (
-          <View
-            key={index}
-            style={{
-              borderWidth: 0,
-              height:
-                Dimensions.get('window').height - 2 * getStatusBarHeight(),
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}>
-            <ColorTable data={item} />
-          </View>
-        )}
-        contentContainerStyle={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-        keyExtractor={(d, i) => i + ''}
-        disableIntervalMomentum
-      />
     </View>
   );
 };
